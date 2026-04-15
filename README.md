@@ -16,10 +16,10 @@ You get that by either authenticating, or, if you already did that, by using a r
 
 ## Log In / Authentication
 
-To log in, make a POST request on https://app.cerivo.com/pub/api/org/{{orgId}}/auth/token with username and password in the
+To log in, make a POST request on https://app.cerivo.com/pub/api/auth/token/org/{{orgId}} with username and password in the
 request body, like this:
 
-`POST https://app.cerivo.com/pub/api/org/af6d0e70-18f5-41ce-b5bb-df709358d523/auth/token`
+`POST https://app.cerivo.com/pub/api/auth/token/org/af6d0e70-18f5-41ce-b5bb-df709358d523/`
 ```json
 {
     "grant_type": "Bearer",
@@ -68,7 +68,7 @@ Access tokens have a relatively short validity period. When one expires you will
 the access token. Refresh tokens can be used only once. When you use one, you get both a new access token and a new refresh token.
 
 Token refresh is done using the same endpoint as authentication, but with `"grant_type": "token_refresh"`, so a request could look like this:
-`POST https://app.cerivo.com/pub/api/org/af6d0e70-18f5-41ce-b5bb-df709358d523/auth/token`
+`POST https://app.cerivo.com/pub/api/auth/token/org/af6d0e70-18f5-41ce-b5bb-df709358d523`
 ```json
 {
     "grant_type": "token_refresh",
@@ -102,7 +102,7 @@ You can do that with the `setMyPassword` operation.:
 
 The API is a basic REST API documented with OpenAPI (Swagger). For an introduction to Swagger please refer to [swagger.io/specification/v3](https://swagger.io/specification/v3/).
 
-The OpenAPI file (yaml) is available at https://app.cerivo.com/pub/api/api-service/api-docs.yaml
+The OpenAPI file (yaml) is available at https://app.cerivo.com/pub/api/api-docs.yaml
 
 You can use the Swagger Editor to browse our API. Import our OpenAPI file here: [Swagger Editor](https://editor-next.swagger.io/).
 The Swagger Editor can also help you generate client code in various languages. 
