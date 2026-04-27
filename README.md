@@ -19,12 +19,12 @@ You get that by either authenticating, or, if you already did that, by using a r
 To log in, make a POST request on https://app.cerivo.com/pub/api/auth/token/org/{{orgId}} with username and password in the
 request body, like this:
 
-`POST https://app.cerivo.com/pub/api/auth/token/org/af6d0e70-18f5-41ce-b5bb-df709358d523/`
+`POST https://app.cerivo.com/pub/api/auth/token/org/445b9c97-b76e-4900-a9eb-5c5ad2ce3a5d/`
 ```json
 {
     "grant_type": "Bearer",
     "usernameOrEmail": "api-read-only-user",
-    "password": "RWd8!777A$vL%@9f60"
+    "password": "dredhUclIHojl1dBZd@5"
 }
 ```
 
@@ -47,9 +47,9 @@ The access token is a JWT (JSON Web Token). When you decode it (you can do that 
   "org": "apidemo",
   "name": "API User",
   "exp": 1711532806,
-  "userId": "e59c7c37-d9eb-480e-ae1f-fbe5316046f6",
+  "userId": "3e39bc34-881a-413d-8a20-527af8e7ca02",
   "iat": 1711529206,
-  "orgId": "af6d0e70-18f5-41ce-b5bb-df709358d523",
+  "orgId": "445b9c97-b76e-4900-a9eb-5c5ad2ce3a5d",
   ... (other properties removed for brevity)
 }
 ```
@@ -68,7 +68,7 @@ Access tokens have a relatively short validity period. When one expires you will
 the access token. Refresh tokens can be used only once. When you use one, you get both a new access token and a new refresh token.
 
 Token refresh is done using the same endpoint as authentication, but with `"grant_type": "token_refresh"`, so a request could look like this:
-`POST https://app.cerivo.com/pub/api/auth/token/org/af6d0e70-18f5-41ce-b5bb-df709358d523`
+`POST https://app.cerivo.com/pub/api/auth/token/org/445b9c97-b76e-4900-a9eb-5c5ad2ce3a5d`
 ```json
 {
     "grant_type": "token_refresh",
