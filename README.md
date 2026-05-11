@@ -19,7 +19,7 @@ You get that by either authenticating, or, if you already did that, by using a r
 To log in, make a POST request on https://app.cerivo.com/pub/api/auth/token/org/{{orgId}} with username and password in the
 request body, like this:
 
-`POST https://app.cerivo.com/pub/api/auth/token/org/445b9c97-b76e-4900-a9eb-5c5ad2ce3a5d/`
+`POST https://app.cerivo.com/pub/api/auth/token/org/445b9c97-b76e-4900-a9eb-5c5ad2ce3a5d`
 ```json
 {
     "grant_type": "Bearer",
