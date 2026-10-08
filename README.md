@@ -129,6 +129,41 @@ Sorting criteria in the format: property,(asc|desc). Default sort order is ascen
 
 
 
+## Custom fields
+
+Tenants can define their own fields on systems, vendors and contracts. List them with:
+
+`GET https://app.cerivo.com/pub/api/org/{{orgId}}/custom-field-definitions?resourceType=SYSTEM`
+
+`resourceType` is optional (`SYSTEM`, `VENDOR` or `CONTRACT`); leave it out to get the fields of all three.
+Each definition has an `id`, a `name`, a `type` (`SINGLE_SELECT`, `MULTI_SELECT` or `TEXT_AREA`) and, for select fields,
+its `options` in display order. Definition and option ids stay the same when a field or option is renamed, so key your
+integration on ids, not names. Only fields on resource types your API user may read are returned, and the list is empty
+when the tenant has not enabled custom fields.
+
+Systems and vendors carry their values in a `customFields` map, keyed by definition id, holding an entry only for fields that have a value:
+```json
+"customFields": {
+    "3f2a6c1e-8d4b-4f7a-9e2c-1b5d7a9c3e4f": { "type": "SINGLE_SELECT", "options": [{ "id": "9c1e4b7d-2a5f-4c8e-b3d6-7f1a2e9b4c5d", "label": "High" }] },
+    "7b44d2e9-1c6a-4b3f-8e5d-9a2c4f7b1e6d": { "type": "TEXT_AREA", "text": "Owned by IT ops" }
+}
+```
+To write values, send the map on `POST`, or patch it with JSON Patch: send `options` (by id) for a select field and `text` for a
+`TEXT_AREA` field; `type` and option labels are ignored. Removing an entry clears that field:
+```json
+[
+    { "op": "add", "path": "/customFields/3f2a6c1e-8d4b-4f7a-9e2c-1b5d7a9c3e4f", "value": { "options": [{ "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d" }] } },
+    { "op": "remove", "path": "/customFields/7b44d2e9-1c6a-4b3f-8e5d-9a2c4f7b1e6d" }
+]
+```
+A value that does not fit its definition (unknown field or option, more than one option on a `SINGLE_SELECT`, text on a
+select field) is rejected with `400` and nothing is changed.
+
+Webhook payloads for systems and vendors include `customFields` as well, and changing only a custom field value sends an `UPDATE`.
+In a webhook payload `customFields` holds the values at the time of delivery; it is `null` if they could not be read.
+
+
+
 ## Reference Documentation
 
 - JWT (rfc7519): https://datatracker.ietf.org/doc/html/rfc7519
