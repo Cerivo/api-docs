@@ -3,7 +3,7 @@
 To access the Cerivo API you need 
 1. The name of your tenant (aka tenantName, org or site)
 2. The id of your tenant (tenantId aka orgId)
-3. Username and password for an api-access user (please contact Cerivo Customer Support to request this)
+3. Username and password for an API user. A Cerivo administrator in your organisation creates the API user in Connection Hub.
 
 With that in hand you can [Authenticate](#authentication) to get an access token, and then you can access the [API](#api).
 
@@ -87,9 +87,7 @@ The response is identical to the authentication response:
 
 ## Changing password
 
-When you request API access Cerivo will send you a username and password. The first thing you should do, when you receive this, is to change the password.
-
-You can do that with the `setMyPassword` operation.:
+An API user can change its own password with the `setMyPassword` operation:
 
 `POST https://app.cerivo.com/pub/api/org/{{orgId}}/auth/setMyPassword`
 ```json
